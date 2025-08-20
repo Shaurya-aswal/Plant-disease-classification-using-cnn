@@ -17,8 +17,8 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the trained model
-MODEL_PATH = "/Users/apple/deep learning  project  -- DIsease analysis /Training/disease_model.h5"
-model = None
+MODEL_PATH = "/Users/apple/Desktop/deep learning  project  -- DIsease analysis /Training/pepper_disease_model_quantized.tflite"
+interpreter = None
 
 # Disease classes (should match your training data - sorted alphabetically as in dataset)
 CLASS_NAMES = [

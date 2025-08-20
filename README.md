@@ -1,29 +1,50 @@
-# Plant Disease Detection System
+ # Pepper Disease Detection Using CNN
 
-A complete AI-powered plant detection system with a modern web interface for farmers and agricultural professionals.
+A deep learning project for detecting bacterial spot disease in pepper plants using Convolutional Neural Networks. The project includes model training, quantization, and a complete web application for real-time disease detection.
 
 ## 🌱 Features
 
-- **Real-time Disease Detection**: Upload plant images for instant AI-powered diagnosis
-- **Comprehensive Disease Database**: Covers 15+ common plant diseases
-- **Treatment Recommendations**: Get specific treatment advice for detected diseases
-- **User-Friendly Interface**: Modern, responsive web design optimized for farmers
-- **Confidence Scoring**: See how confident the AI is in its predictions
-- **Mobile-Friendly**: Works on phones, tablets, and desktop computers
+- **CNN Model Training**: Complete Jupyter notebook for training pepper disease detection model
+- **Model Quantization**: TensorFlow Lite quantized model for efficient deployment 
+- **Real-time Detection**: Upload pepper leaf images for instant AI-powered diagnosis
+- **Web Interface**: Modern Next.js application with drag-and-drop functionality
+- **REST API**: Flask backend API for model predictions
+- **Confidence Scoring**: Get confidence levels for predictions
+- **Mobile-Friendly**: Responsive design for all devices
 
-## 🏗️ Architecture
+## 🏗️ Project Structure
 
-- **Frontend**: Next.js with TypeScript and Tailwind CSS
-- **Backend**: Python Flask API with TensorFlow
-- **AI Model**: Convolutional Neural Network trained on PlantVillage dataset
-- **Image Processing**: PIL for image preprocessing
-- **File Upload**: React Dropzone for drag-and-drop functionality
+```
+├── Training/
+│   ├── model.ipynb                                 # Complete CNN training notebook
+│   └── pepper_disease_model_quantized.tflite      # Quantized model (14MB)
+├── backend/
+│   ├── app.py                                      # Flask API server
+│   └── requirements.txt                            # Python dependencies
+├── frontend/
+│   └── plant-disease-detector/                     # Next.js web application
+├── data/                                           # Training dataset (excluded from repo)
+│   ├── Pepper__bell___Bacterial_spot/              # Bacterial spot images
+│   └── Pepper__bell___healthy/                     # Healthy pepper images
+└── README.md                                       # Project documentation
+```
+
+## 🧠 Model Details
+
+- **Architecture**: Sequential CNN with data augmentation
+- **Input Size**: 256x256 RGB images  
+- **Classes**: 2 classes (Bacterial Spot, Healthy)
+- **Training Dataset**: Pepper plant leaf images
+- **Model Format**: Quantized TensorFlow Lite (.tflite)
+- **Model Size**: 14MB (optimized from 169MB original)
+- **Preprocessing**: Rescaling (0-1 normalization), random flip, rotation, zoom
 
 ## 📋 Prerequisites
 
-- Node.js 18+ and npm
-- Python 3.8+
-- Your trained TensorFlow model (.h5 file)
+- **Python 3.8+** for model training and backend API
+- **TensorFlow 2.13+** for deep learning
+- **Node.js 18+** and npm for frontend development
+- **Jupyter Notebook** for model training
 
 ## 🚀 Setup Instructions
 
@@ -59,14 +80,25 @@ python app.py
 
 The backend API will be available at `http://localhost:5000`
 
-### 3. Model Integration
+### 3. Model Training (Optional)
 
-Make sure your trained model is located at:
-```
-/Users/apple/deep learning  project  -- DIsease analysis /training/plant_disease_model.h5
+If you want to retrain the model:
+
+```bash
+cd "/Users/apple/Desktop/deep learning  project  -- DIsease analysis /Training"
+
+# Open Jupyter notebook
+jupyter notebook model.ipynb
 ```
 
-If your model is elsewhere, update the `MODEL_PATH` in `backend/app.py`.
+The trained quantized model is already provided at:
+```
+Training/pepper_disease_model_quantized.tflite
+```
+
+**Note**: The training dataset is not included in the repository due to size constraints. You'll need to add your own pepper disease images to the `data/` folder following the structure:
+- `data/Pepper__bell___Bacterial_spot/` - Images of bacterial spot disease
+- `data/Pepper__bell___healthy/` - Images of healthy pepper plants
 
 ## 📱 Usage
 
@@ -154,6 +186,7 @@ The frontend uses Tailwind CSS for styling. Modify components in:
 - **Preprocessing**: Rescaling (0-1 normalization) and data augmentation
 - **Model Format**: Quantized TensorFlow Lite (.tflite) for optimal mobile deployment
 - **Model Size**: 14MB (quantized from original 169MB)
+- **Training Notebook**: `Training/model.ipynb` with complete CNN implementation
 
 ## 🚨 Troubleshooting
 
@@ -186,7 +219,7 @@ This project is for educational and research purposes. Please ensure compliance 
 
 ## 🙏 Acknowledgments
 
-- PlantVillage dataset for training data
+- Pepper disease dataset for training data
 - TensorFlow team for the ML framework
 - Next.js and React communities
 - Agricultural experts for domain knowledge
