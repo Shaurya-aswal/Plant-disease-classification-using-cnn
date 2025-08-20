@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// Backend API URL - update this if your Python API runs on a different port
-const BACKEND_API_URL = 'http://localhost:5001'
+// Backend API URL - will be set via environment variable in production
+const BACKEND_API_URL = process.env.BACKEND_URL || 'http://localhost:5000'
 
 export async function POST(request: NextRequest) {
   try {

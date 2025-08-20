@@ -100,6 +100,28 @@ Training/pepper_disease_model_quantized.tflite
 - `data/Pepper__bell___Bacterial_spot/` - Images of bacterial spot disease
 - `data/Pepper__bell___healthy/` - Images of healthy pepper plants
 
+## 🚀 Deployment
+
+### Quick Deploy to Vercel
+
+The easiest way to deploy both frontend and backend:
+
+```bash
+# Run the automated deployment script
+./deploy.sh
+```
+
+This will deploy both the backend API and frontend to Vercel automatically.
+
+### Manual Deployment
+
+For step-by-step deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### Live Demo
+
+- **Frontend**: `https://your-frontend.vercel.app` (after deployment)
+- **Backend API**: `https://your-backend.vercel.app` (after deployment)
+
 ## 📱 Usage
 
 1. **Open the web application** at `http://localhost:3000`

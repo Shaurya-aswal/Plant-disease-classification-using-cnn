@@ -8,7 +8,13 @@ import os
 import numpy as np
 import tensorflow as tf
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from if __name__ == '__main__':
+    print("Starting Plant Disease Detection API...")
+    load_model()
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
+# Initialize model on import for Vercel
+load_model()rs import CORS
 from PIL import Image
 import io
 import base64
@@ -17,7 +23,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the trained model
-MODEL_PATH = "/Users/apple/Desktop/deep learning  project  -- DIsease analysis /Training/pepper_disease_model_quantized.tflite"
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "pepper_disease_model_quantized.tflite")
 interpreter = None
 
 # Disease classes (should match your training data - sorted alphabetically as in dataset)
@@ -90,18 +96,19 @@ DISEASE_INFO = {
 }
 
 def load_model():
-    """Load the trained TensorFlow model"""
-    global model
+    """Load the trained TensorFlow Lite model"""
+    global interpreter
     try:
         if os.path.exists(MODEL_PATH):
-            model = tf.keras.models.load_model(MODEL_PATH)
-            print(f"Model loaded successfully from {MODEL_PATH}")
+            interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
+            interpreter.allocate_tensors()
+            print(f"TensorFlow Lite model loaded successfully from {MODEL_PATH}")
         else:
             print(f"Model file not found at {MODEL_PATH}")
-            model = None
+            interpreter = None
     except Exception as e:
         print(f"Error loading model: {e}")
-        model = None
+        interpreter = None
 
 def preprocess_image(image_file):
     """Preprocess the uploaded image for prediction"""
@@ -159,7 +166,7 @@ def predict():
     """Predict plant disease from uploaded image"""
     try:
         # Check if model is loaded
-        if model is None:
+        if interpreter is None:
             return jsonify({'error': 'Model not loaded'}), 500
         
         # Check if image file is provided
@@ -177,9 +184,15 @@ def predict():
         if img_array is None:
             return jsonify({'error': 'Error processing image'}), 400
         
-        # Make prediction
+        # Make prediction with TensorFlow Lite
         print("Making prediction...")
-        predictions = model.predict(img_array, verbose=0)
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+        
+        interpreter.set_tensor(input_details[0]['index'], img_array)
+        interpreter.invoke()
+        predictions = interpreter.get_tensor(output_details[0]['index'])
+        
         print(f"Raw predictions shape: {predictions.shape}")
         print(f"Raw predictions: {predictions[0]}")
         
@@ -246,4 +259,8 @@ def get_classes():
 if __name__ == '__main__':
     print("Starting Plant Disease Detection API...")
     load_model()
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
+# For Vercel deployment
+def handler(request):
+    return app(request.environ, request.start_response)
