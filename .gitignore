@@ -1,0 +1,50 @@
+# Large files and models
+*.h5
+*.hdf5
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+out/
+dist/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Large dataset (keep small sample only)
+data/*/
+!data/sample/
+data/
+*.DS_Store
+node_modules/
