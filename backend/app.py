@@ -256,11 +256,20 @@ def get_classes():
         'count': len(CLASS_NAMES)
     })
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint for deployment platforms"""
+    return jsonify({
+        'status': 'healthy',
+        'model_loaded': interpreter is not None,
+        'timestamp': str(np.datetime64('now'))
+    })
+
 if __name__ == '__main__':
     print("Starting Plant Disease Detection API...")
     load_model()
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
 
-# For Vercel deployment
-def handler(request):
-    return app(request.environ, request.start_response)
+# Initialize model on startup
+load_model()
