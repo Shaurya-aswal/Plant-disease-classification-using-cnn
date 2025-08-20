@@ -190,3 +190,4 @@ This project is for educational and research purposes. Please ensure compliance 
 - TensorFlow team for the ML framework
 - Next.js and React communities
 - Agricultural experts for domain knowledge
+# Plant-disease-classification-using-cnn
