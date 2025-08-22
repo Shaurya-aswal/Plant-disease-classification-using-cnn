@@ -23,7 +23,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the trained model
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "pepper_disease_model_quantized.tflite")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "../Training/pepper_disease_model_quantized.tflite")
 interpreter = None
 
 # Disease classes (should match your training data - sorted alphabetically as in dataset)

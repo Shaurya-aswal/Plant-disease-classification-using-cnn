@@ -42,10 +42,10 @@ Thumbs.db
 # Jupyter Notebook
 .ipynb_checkpoints/
 
+# Deployment
+.vercel/
+.railway/
+.render/
+
 # Large dataset (keep small sample only)
-data/*/
-!data/sample/
 data/
-*.DS_Store
-node_modules/
-.vercel
